@@ -28,13 +28,30 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Check website files
+        run: |
+          echo "Repository root:"
+          ls -lah
+
+          echo "Web folder:"
+          ls -lah web/
+
+          echo "All website files:"
+          find web -type f
+
+          echo "Total file count:"
+          find web -type f | wc -l
+
+          echo "Checking index.html:"
+          test -f web/index.html
+
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
       - name: Upload Flutter website
         uses: actions/upload-pages-artifact@v4
         with:
-          path: web
+          path: web/
 
       - name: Deploy to GitHub Pages
         id: deployment
